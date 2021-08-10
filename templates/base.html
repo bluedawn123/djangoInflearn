@@ -3,15 +3,17 @@
 
 {% include 'head.html' %}  <!-- head.html을 다 갖고올 수 있다. -->
 
-
 <body>   <!-- 3부분으로 나누기 위, 아래 부분은 그대로 인데 중간만 바뀌는 게 핵심-->
 
     {% include 'header.html' %}
 
+    <hr>  <!-- 구분선 -->
 
     {% block content %}  <!-- content라는 블럭 나머지는 재사용 하면서, content부분만 바꿔주기-->
     {% endblock %}
 
+
+    <hr>  <!-- 구분선 -->
 
     {% include 'footer.html' %}
 
