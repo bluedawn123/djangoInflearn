@@ -124,3 +124,15 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  #'staticfiles'
+#python manage.py collectstatic =>프로젝트 내의 모든 static파일을 모아준다.
+#STATIC_ROOT는 위의 명령어를 통해 어디로 모일지를 알려준다.
+#os.path.join?
+#BASE_DIR? => ctrl클릭해보자. Path(__file__).resolve().parent.parent, 즉, djangoInflearn을 기본디렉토리로 하겠다.
+#즉, 그 위의 staticfiles라는 추가적인 폴더에 명령어를 사용해 staticfiles를 다 모으겠다.
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
