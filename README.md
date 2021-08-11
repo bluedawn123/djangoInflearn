@@ -10,4 +10,8 @@
 4. static 관련한 파일을 가져오는 과정? 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
-=> 
+=> static폴더의 base.css에서 지정한 .pragmatic_footer_logo {
+                                  font-family: 'Lobster', cursive;
+                                   } 하기 위해서.
+
+참조로,<h6 class="pragmatic_footer_logo">Pragmatic</h6>에서 pragmatic_footer_logo를 클래스로 지정.(그걸base.css에서 정의)
