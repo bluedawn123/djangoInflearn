@@ -24,6 +24,8 @@ def hello_world(request):
     return render(request, 'accountapp/hello_world.html')    #base.html이면, base.html을 가져오겠지? 우리는 accountapp내부의 정보가 필요하다
 
 
+def hello_world2(request):
+    return render(request, 'accountapp/hello_world2.html')    #base.html이면, base.html을 가져오겠지? 우리는 accountapp내부의 정보가 필요하다
 
 def hello_worlds(request):
     return HttpResponse("hello world!!!!!!!!!!")
