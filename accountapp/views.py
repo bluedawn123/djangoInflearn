@@ -25,7 +25,11 @@ def hello_world(request):
 
 
 def hello_world2(request):
-    return render(request, 'accountapp/hello_world2.html')    #base.html이면, base.html을 가져오겠지? 우리는 accountapp내부의 정보가 필요하다
+    if request.method == "POST":   #만약 요청받은 매소드가 post일 경우,
+        return render(request, 'accountapp/hello_world2.html', context={'text': 'POST METHOD!!!'})  #context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물
+
+    else:
+        return render(request, 'accountapp/hello_world2.html', context={'text': 'GET METHOD!!!'})  # context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물
 
 def hello_worlds(request):
     return HttpResponse("hello world!!!!!!!!!!")
