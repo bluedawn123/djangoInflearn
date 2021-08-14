@@ -8,13 +8,13 @@
          </h1>
 
         <!-- post를 쓰려면 form(데이터 꾸러미)을 써야한다.-->
-         <form action="/account/hello_world2/" method="post">
+         <form action="/account/hello_world2/" method="post">     <!--  해당 주소로 post매소드 사용해서 보내겠다 -->
             {% csrf_token %}
             <div> <!-- 서버로 보낼 내용-->
-                <input type="text" name="hello_world_input">         <!--name?구분자! input을 hello_world_input이름으로 담아서 서버로 보냄 -->
-
+                <input type="text" name="hello_world_input">         <!--name?구분자! input에 hello_world_input이름 데이터를 담아서 서버로 보냄 -->
             </div>
-            <input type="submit" class="btn btn_primary" value="POST">
+
+            <input type="submit" class="btn btn_primary" value="POST">  <!-- 버튼 설정-->
          </form>
 
          {% if hello_world_list %}   <!-- 만약 hello_world_list가 있다면,  h1을 생성해라-->

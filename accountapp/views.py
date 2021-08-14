@@ -26,25 +26,29 @@ def hello_world(request):
 
 
 def hello_world2(request):
-    if request.method == "POST":   #만약 요청받은 매소드가 post일 경우,
+    if request.method == "POST":   #만약 요청받은 매소드가 post일 경우, POST 매소드는 객체 생성시 사용된다.
         ##hello_world_input을 {{ text }}에서 출력하는 것
         temp = request.POST.get('hello_world_input')    #request에서 POST메서드 중, hello_world_input데이터를 가져와 temp변수에 저장
         
         #저장하는 방법
         new_Hello_world = HelloWorld()  #HelloWorld 모델에서 나온 새로운 객체가 new_hello_world에 저장이 된다.
         new_Hello_world.text = temp     #HelloWorld는 text라는 charfield라는 속성값이 있다. new_Hello_world안의 text필드 = temp(입력값)으로 설정
-        new_Hello_world.save()          #실제로 db에 저장
+        new_Hello_world.save()          #실제로 db에 저장된다.(우선은 sqlite에)
 
         #db에 쌓이는 정보list들을 display하는 법
         hello_world_list = HelloWorld.objects.all()   #HelloWorld의 모든 것들을 긁어와 변수에 저장
 
-        #return render(request, 'accountapp/hello_world2.html', context={'text': 'POST METHOD!!!'})  #context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물을 보냄
+        #return render(request, 'accountapp/hello_world2.html', context={'text': 'POST METHOD!!!'})  #context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물을 보냄. html에 {{ text }}로 
+        #return render(request, 'accountapp/hello_world2.html', context={'hello_world_output': new_hello_world}) #new_hello_world객체를 내보낸다. html에서 hello_world_output 명시 필수
         #return render(request, 'accountapp/hello_world2.html', context={'hello_world_list': hello_world_list})  #받을 것을 그대로 보내준다. 반복하는 문제가 생긴다.
-        return HttpResponseRedirect(reverse('accountapp:hello_world2'))  #accountapp내부의 hello_world2를 재섭속해라
+        return HttpResponseRedirect(reverse('accountapp:hello_world2'))  #(account/hello_world2)를 해도 된다.
+                                                                         #초기에 설정한 것 이용. accountapp내부의 hello_world2를 재섭속해라
 
-    else:
 
-        #GET
+
+    else:                        #만약 요청받은 매소드가 post가 아닌 경우, get매소드 사용
+
+        #GET에서도 똑같은 행동을 할수 있도록 설정
         hello_world_list = HelloWorld.objects.all()
         #return render(request, 'accountapp/hello_world2.html', context={'text': 'GET METHOD!!!'})  # context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물
         return render(request, 'accountapp/hello_world2.html', context={'hello_world_list': hello_world_list})  # context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물

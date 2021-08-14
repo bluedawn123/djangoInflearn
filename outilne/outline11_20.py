@@ -58,7 +58,11 @@ post는 post+body
 4. 장고로 post메소드를 사용해 서버에 요청을 보낼때는 csrf토큰이 필요하다. => 보안 기능중 하나.
 5. #context=>데이터꾸러미..?
 
-
+18강.
+render 와 redirect 구분
+두 함수를 헷갈려 혼동하는 경우가 많습니다. 특히 장고가 익숙하지 않을 때는 둘다 return 뒤에 위치하여 함수를 종료할 시 사용
+render 는 템플릿을 불러오고, redirect 는 URL로 이동
+URL 로 이동한다는 건 그 URL 에 맞는 views 가 다시 실행될테고 여기서 render 를 할지 다시 redirect 할지 결정
 
 
 '''
