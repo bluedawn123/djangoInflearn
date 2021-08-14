@@ -1,0 +1,14 @@
+{% extends 'base.html' %}  <!-- 전에 만들어놓은 base.html(뼈대)를 가져온다. 이걸 사용하면, 가운데만 바꿀 수 있게-->
+
+{% block content%}
+
+    <div style="text-align: center">
+        <form action="{% url 'accountapp:create' %}" method="post">          <!--form 액션 내부엔 요청 url이 필요하다. accountapp내부의 create라는 라우트로 연결하라-->
+            {& csrf_token %}
+            {{ form }}       <!-- view.py의 form_class = UserCreationForm -->
+
+            <input type="submit" class="btn btn-primary">
+        </form>
+    </div>
+
+{% endblock %}

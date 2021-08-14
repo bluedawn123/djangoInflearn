@@ -1,8 +1,36 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 # Create your views here.
+from django.views.generic import CreateView
+
 from accountapp.models import HelloWorld
+
+#CBV로 만들기.FBV보다 낫다.
+class AccountCreateView(CreateView):
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy('accountapp:hello_world2')  #계정 성공 후 재연결..reverser_lazy는 class, reverse는 함수에서 사용
+    template_name = 'accountapp/create.html'            #어느 html을 통해서 볼지 설정. create.html이 필요하다
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 '''
 def hello_world(request):
@@ -13,9 +41,9 @@ def hello_world(request):
     #request에 대해서는 조금 후에 더 자세히 알아보자.
     #view에서 직접 만들어서 되돌려 주는 형식
 
-'''
 
-'''
+
+
 def hello_world(request):
     return render(request, 'base.html')  #templates의 base.html 반환
                                          #pragmatic.setting.py의 TEMPLATES에서 경로를 설정해줘야한다.
@@ -52,12 +80,6 @@ def hello_world2(request):
         hello_world_list = HelloWorld.objects.all()
         #return render(request, 'accountapp/hello_world2.html', context={'text': 'GET METHOD!!!'})  # context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물
         return render(request, 'accountapp/hello_world2.html', context={'hello_world_list': hello_world_list})  # context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물
-
-
-
-
-
-
 
 
 
