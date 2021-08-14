@@ -2,22 +2,32 @@
 
 {% block content%}
 
-     <div style="height: 20rem; background-color: #38df81; border-radius: 1rem; margin: 2rem">
-         <h1>
-             testingsssssss
+     <div style="border-radius: 1rem; margin: 2rem; text-align: center">
+         <h1 class="pragmatic_logo">
+            Hello world List!
          </h1>
 
-        <!-- post를 쓰려면 form을 써야한다.-->
+        <!-- post를 쓰려면 form(데이터 꾸러미)을 써야한다.-->
          <form action="/account/hello_world2/" method="post">
             {% csrf_token %}
+            <div> <!-- 서버로 보낼 내용-->
+                <input type="text" name="hello_world_input">         <!--name?구분자! input을 hello_world_input이름으로 담아서 서버로 보냄 -->
 
-            <input type="submit" class="btn btn_primary" value="POST~~~!">
+            </div>
+            <input type="submit" class="btn btn_primary" value="POST">
          </form>
 
-         <h1>
-             {{ text }}
-         </h1>
+         {% if hello_world_list %}   <!-- 만약 hello_world_list가 있다면,  h1을 생성해라-->
+            {% for hello_world in hello_world_list %}
+            <h4>
+                {{ hello_world.text }}
+            </h4>
+            {% endfor %}
+         {% endif %}
 
      </div>
 
 {% endblock %}
+
+<!--<h1 class="pragmatic_logo">Pragmatic</h1>
+            style="font-family: 'Lobster', cursive;"-->
