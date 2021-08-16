@@ -1,16 +1,18 @@
 {% extends 'base.html' %}  <!-- 전에 만들어놓은 base.html(뼈대)를 가져온다. 이걸 사용하면, 가운데만 바꿀 수 있게-->
+{% load bootstrap4 %}
 
 {% block content%}
 
-    <div style="text-align: center">
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto ">
         <div>
-            <h4>Login</h4>
+            <h4>Login!</h4>
         </div>
         <div>
             <form action="" method="post">
-                {$ csrf_token %}
-                {{ form }}
-                <input type="submit" class="btn btn-primary">
+                {% csrf_token %}
+                <!-- {{ form }}  form을 쓰는 대신 부트스트랩 적용된 form 구문 사용-->
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-dark rounded-pill col-6 mt-5">
             </form>
         </div>
     </div>

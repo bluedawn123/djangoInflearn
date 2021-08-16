@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 # Create your views here.
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from accountapp.models import HelloWorld
 
@@ -13,14 +13,24 @@ class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy('accountapp:hello_world2')  #계정 성공 후 재연결..reverser_lazy는 class, reverse는 함수에서 사용
-    template_name = 'accountapp/create.html'            #어느 html을 통해서 볼지 설정. create.html이 필요하다
+    template_name = 'accountapp/create.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
 
 
+class AccountDetailView(DetailView):
+    model = User                                         #어떤 모델을 쓸지?
+    template_name = 'accountapp/detail.html'             #어떻게 보여줄지?
+    context_object_name = 'target_user'                  #템플릿에서 사용하는 user이름의 객체를 다르게 할 수 있다. 다른사람이 내 페이지를 와도 정상적으로 타깃유저것을 보게한다.
 
+class AccountUpdateView(UpdateView):
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy('accountapp:hello_world2')  #계정 성공 후 재연결..reverser_lazy는 class, reverse는 함수에서 사용
+    template_name = 'accountapp/update.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
 
-
-
-
+class AccountDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('accountapp:login')
+    template_name = 'accountapp/delete.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
 
 
 

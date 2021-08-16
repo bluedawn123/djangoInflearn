@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
-from accountapp.views import hello_world, hello_worlds, hello_world2, AccountCreateView
+from accountapp.views import hello_world, hello_worlds, hello_world2, AccountCreateView, AccountDetailView
+from accountapp.views import AccountUpdateView
 
 app_name = 'accountapp'
 
@@ -18,5 +19,9 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='accountapp/login.html'), name='login'),                #as_view()안에 지정 템플릿이 필요하다
     path('logout/', LogoutView.as_view(), name='logout'),
 
+    #detail. 특정 유저의 정보를 보기 => 계정의 primary key가 필요하다. -> <int:pk> pk라는 이름의 정수를 받겠다.
+    path('detail/<int:pk>', AccountDetailView.as_view(), name='detail'),
+    path('update/<int:pk>', AccountUpdateView.as_view(), name='update'),
+    path('delete/<int:pk>', AccountUpdateView.as_view(), name='delete'),
 
 ]

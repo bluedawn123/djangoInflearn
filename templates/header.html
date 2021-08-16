@@ -7,11 +7,30 @@
             <span>nav1</span>
             <span>nav2</span>
             <span>nav3</span>
-            <span>nav4</span>
+
+            <!--로그인 만들기-->
+            {% if not user.is_authenticated %}        <!--만약 유저가 로그인이 되어있지 않다면 login을 보여주고-->
+            <a href="{% url 'accountapp:login' %}?next={{ request.path }}">   <!--login이후가 필요하다. get방식으로 넘겨주기. request.path는 원래 있던 곳으로 돌아오기-->
+                <span>login</span>
+            </a>
+
+            <a href="{% url 'accountapp:create' %}">   <!--버튼 누르면 account/create로 이동-->
+                <span>Sign Up</span>
+            </a>
+
+
+            {% else %}                               <!--login상태라면 mypage로 향하는 링크 생성 ㄱㄱ-->
+            <a href="{% url 'accountapp:detail' pk=user.pk %}">
+                <span>Mypage</span>
+            </a>
+
+            <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
+                <span>logout</span>
+            </a>
+            {% endif %}
         </div>
 
-    </div>                     <!--헤더 부분도 이렇게 나눌 수 있다. -->
-
+    </div>
 
 
 

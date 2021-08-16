@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
     'accountapp',  #accountapp을 사용하겠다
 ]
 
@@ -136,3 +139,5 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world2')     #account/login에서 직접 입력시 account/profile로 가지기 때문에, account/hello_world2로 보내기 설정
+LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')     #account/login에서 직접 입력시 account/profile로 가지기 때문에, account/hello_world2로 보내기 설정
