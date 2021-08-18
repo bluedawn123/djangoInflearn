@@ -25,7 +25,7 @@ class AccountDetailView(DetailView):
 
 class AccountUpdateView(UpdateView):
     model = User
-    form_class = UserCreationForm
+    form_class = AccountUpdateForm
     success_url = reverse_lazy('accountapp:hello_world2')  #계정 성공 후 재연결..reverser_lazy는 class, reverse는 함수에서 사용
     template_name = 'accountapp/update.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
 
@@ -88,6 +88,7 @@ def hello_world2(request):
             #return render(request, 'accountapp/hello_world2.html', context={'hello_world_list': hello_world_list})  #받을 것을 그대로 보내준다. 반복하는 문제가 생긴다.
             return HttpResponseRedirect(reverse('accountapp:hello_world2'))  #(account/hello_world2)를 해도 된다.
                                                                          #초기에 설정한 것 이용. accountapp내부의 hello_world2를 재섭속해라
+
         else:                        #만약 요청받은 매소드가 post가 아닌 경우, get매소드 사용
 
             #GET에서도 똑같은 행동을 할수 있도록 설정
@@ -97,6 +98,15 @@ def hello_world2(request):
 
     else:  #로그인 안 된 경우 로그인 페이지로 보내버리기
         return HttpResponseRedirect(reverse('accountapp:login'))
+
+
+
+
+
+
+
+
+
 
 
 def hello_worlds(request):
