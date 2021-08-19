@@ -6,6 +6,7 @@ from django.urls import reverse, reverse_lazy
 # Create your views here.
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
 
 #CBV로 만들기.FBV보다 낫다.
@@ -28,12 +29,14 @@ class AccountUpdateView(UpdateView):
     form_class = AccountUpdateForm
     success_url = reverse_lazy('accountapp:hello_world2')  #계정 성공 후 재연결..reverser_lazy는 class, reverse는 함수에서 사용
     template_name = 'accountapp/update.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
+    context_object_name = 'target_user'
 
 
 class AccountDeleteView(DeleteView):
     model = User
     success_url = reverse_lazy('accountapp:login')
     template_name = 'accountapp/delete.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
+    context_object_name = 'target_user'
 
 
 

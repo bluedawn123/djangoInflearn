@@ -1,5 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
+from django.views.generic import RedirectView
+
 from accountapp.views import hello_world, hello_worlds, hello_world2, AccountCreateView, AccountDetailView
 from accountapp.views import AccountUpdateView, AccountDeleteView
 
@@ -12,7 +14,8 @@ urlpatterns = [
     #즉, account/hello_world/ 가 들어오면, view의 hello_world라는 함수로 처리한다. 그 아래도 마찬가지
     path('hello_world2/', hello_world2, name='hello_world2'),
 
-    path("", hello_world2, name='hello_world2'),
+    #path("", hello_world2, name='hello_world2'),
+    #path("http://127.0.0.1:8000/",  hello_world2, name='hello_world2'),
 
     #회원가입 경로 생성. CBV
     path('create/', AccountCreateView.as_view(), name='create'),
@@ -27,3 +30,6 @@ urlpatterns = [
     path('delete/<int:pk>', AccountDeleteView.as_view(), name='delete'),
 
 ]
+
+
+#class HelloWorld(models.Model):

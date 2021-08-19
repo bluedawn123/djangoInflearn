@@ -19,6 +19,7 @@ class sister(father):  # 자식클래스(부모클래스) 아빠매소드를 상
         self.choice()
 
 
+
 girl = sister("아빠", "얼굴")
 girl.handsome()
 
