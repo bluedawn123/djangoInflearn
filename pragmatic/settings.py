@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'accountapp',  #accountapp을 사용하겠다
+    'profileapp',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,8 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world2')     #account/login에서 직접 입력시 account/profile로 가지기 때문에, account/hello_world2로 보내기 설정
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')     #account/login에서 직접 입력시 account/profile로 가지기 때문에, account/hello_world2로 보내기 설정
+
+
+#미디어 설정
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')      #media파일을 서버에 올렸을때 어느 경로에 지정이 될 것인지
+MEDIA_URL = '/media/'                             #주소창에 media 이하로 해야 접근 가능

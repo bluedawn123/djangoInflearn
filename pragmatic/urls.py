@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from django.urls import include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,7 +25,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),               #admin접속
     path('accounts/', include('accountapp.urls')), #account접속, accoutnapp내부의 urls.py를 포함해서 하위 디렉토리로 분기.  account => accounts로 변경
-
+    path('profiles/', include('profileapp.urls')),
 
 
     ##path('junho/', views.index),  #junho/ URL이 요청되면 views.index를 호출매핑을 urlpatterns에 추가. views.index는 views.py 파일의 index 함수를 의미한다.

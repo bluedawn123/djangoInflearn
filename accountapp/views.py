@@ -1,13 +1,20 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 # Create your views here.
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from accountapp.decorators import account_ownership_required
 from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
+
+has_owership = [account_ownership_required, login_required]
+
+
 
 #CBV로 만들기.FBV보다 낫다.
 class AccountCreateView(CreateView):
@@ -24,25 +31,24 @@ class AccountDetailView(DetailView):
 
 
 
+@method_decorator(has_owership, 'get')
+@method_decorator(has_owership, 'post')
+
 class AccountUpdateView(UpdateView):
     model = User
+    context_object_name = 'target_user'
     form_class = AccountUpdateForm
     success_url = reverse_lazy('accountapp:hello_world2')  #계정 성공 후 재연결..reverser_lazy는 class, reverse는 함수에서 사용
     template_name = 'accountapp/update.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
-    context_object_name = 'target_user'
 
 
+@method_decorator(has_owership, 'get')
+@method_decorator(has_owership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
+    context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:login')
     template_name = 'accountapp/delete.html'               #어느 html을 통해서 볼지 설정. create.html이 필요하다
-    context_object_name = 'target_user'
-
-
-
-
-
-
 
 
 
@@ -70,8 +76,40 @@ def hello_world(request):
     return render(request, 'accountapp/hello_world.html')    #base.html이면, base.html을 가져오겠지? 우리는 accountapp내부의 정보가 필요하다
 
 
+@login_required
 def hello_world2(request):
-    
+
+    if request.method == "POST":
+        temp = request.POST.get('hello_world_input')
+
+        new_Hello_world = HelloWorld()
+        new_Hello_world.text = temp
+        new_Hello_world.save()
+
+        return HttpResponseRedirect(reverse('accountapp:hello_world2'))
+
+    else:
+        hello_world_list = HelloWorld.objects.all()
+        return render(request, 'accountapp/hello_world2.html', context={'hello_world_list': hello_world_list})
+
+
+
+
+
+
+
+
+
+def hello_worlds(request):
+    return HttpResponse("hello world!!!!!!!!!!")
+    #HttpResponse는 요청 페이지에 대한 응답을 할때 사용하는 장고 클래스이다.
+    #라는 문자열을 브라우저에 출력하기 위해 사용되었다. index 함수의 매개변수 request는 장고에 의해 자동으로 전달되는 HTTP 요청 객체이다.
+    #request에 대해서는 조금 후에 더 자세히 알아보자.
+
+#hello_world_input을 {{ text }}에서 출력하는 것
+
+'''
+def hello_world2(request):
     #인증과정 만들기
     if request.user.is_authenticated:  #만약 유저가 인증되었다면,
         if request.method == "POST":   #만약 요청받은 매소드가 post일 경우, POST 매소드는 객체 생성시 사용된다.
@@ -100,23 +138,4 @@ def hello_world2(request):
             return render(request, 'accountapp/hello_world2.html', context={'hello_world_list': hello_world_list})  # context=>데이터꾸러미..? text라는 이름의 POST METHOD라는 내용물
 
     else:  #로그인 안 된 경우 로그인 페이지로 보내버리기
-        return HttpResponseRedirect(reverse('accountapp:login'))
-
-
-
-
-
-
-
-
-
-
-
-def hello_worlds(request):
-    return HttpResponse("hello world!!!!!!!!!!")
-    #HttpResponse는 요청 페이지에 대한 응답을 할때 사용하는 장고 클래스이다.
-    #라는 문자열을 브라우저에 출력하기 위해 사용되었다. index 함수의 매개변수 request는 장고에 의해 자동으로 전달되는 HTTP 요청 객체이다.
-    #request에 대해서는 조금 후에 더 자세히 알아보자.
-
-#hello_world_input을 {{ text }}에서 출력하는 것
-
+        return HttpResponseRedirect(reverse('accountapp:login'))'''
