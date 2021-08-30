@@ -1,9 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 
+from profileapp.decorators import profile_account_ownership_required
 from profileapp.forms import ProfileCreationForm
 from profileapp.models import Profile
 
@@ -12,7 +14,7 @@ class ProfileCreateView(CreateView):
     model = Profile
     context_object_name = 'target_profile'
     form_class = ProfileCreationForm
-    success_url = reverse_lazy('accountapp:hello_world2')
+    #success_url = reverse_lazy('accountapp:hello_world2')
     template_name = 'profileapp/create.html'                #profileapp 내부의 create.html 사용
 
     def form_valid(self, form):
@@ -21,11 +23,17 @@ class ProfileCreateView(CreateView):
         temp_profile.save()
 
         return super().form_valid(form)       #기존의 함수와 똑같다. 그리고 나머지는 조상(부모클래스)의 원래 그거의 결과를 return해준다.
-
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk': self.object.user.pk})
 #U
+@method_decorator(profile_account_ownership_required, 'get')
+@method_decorator(profile_account_ownership_required, 'post')
 class ProfileUpdateView(UpdateView):
     model = Profile
     context_object_name = 'target_profile'
     form_class = ProfileCreationForm
-    success_url = reverse_lazy('accountapp:hello_world2')
+    #success_url = reverse_lazy('accountapp:hello_world2')
     template_name = 'profileapp/update.html'                #profileapp 내부의 update.html 사용
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk': self.object.user.pk})

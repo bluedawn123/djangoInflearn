@@ -31,4 +31,5 @@ urlpatterns = [
     ##path('junho/', views.index),  #junho/ URL이 요청되면 views.index를 호출매핑을 urlpatterns에 추가. views.index는 views.py 파일의 index 함수를 의미한다.
 
     #path("", RedirectView.as_view(url="accounts/hello_world2/", permanent=True))
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

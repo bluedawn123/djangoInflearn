@@ -8,9 +8,8 @@
             <h4>Change Info</h4>
         </div>
 
-        <form action="{% url 'accountapp:update' pk=target_user.pk %}" method="post">          <!--form 액션 내부엔 요청 url이 필요하다. accountapp내부의 create라는 라우트로 연결하라-->
+        <form action="{% url 'accountapp:update' pk=target_user.pk %}" method="post">
             {% csrf_token %}
-            <!-- {{ form }}        view.py의 form_class = UserCreationForm -->
             {% bootstrap_form form %}
             <input type="submit" class="btn btn-dark rounded-pill col-6 mt-5">
         </form>

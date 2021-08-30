@@ -6,12 +6,20 @@
     <div>
         <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
             <p>
-                {{ target_user.date_joined }} 가입시점
+                {{ target_user.date_joined }}
             </p>
+
+            <!-- 사진 -->
+            <img src="{{ target_user.profile.image.url }}" alt="">
 
             {% if target_user.profile %}                       <!-- target_user의 profile이 존재하면, -->
             <h2 style="font-family: 'NanumSquareB'">
                 {{ target_user.profile.nickname }}          <!--어서오세요 {{ target_user.username }}님 에서, 프로필이 있으면 닉네임 보여주는 걸로 변경-->
+
+                <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
+                    Edit
+                </a>
+
             </h2>
 
             {% else %}                                       <!-- 아닌 경우에는 profileapp의 create/profile로 이동시켜 만드는 페이지로 보내버림-->
