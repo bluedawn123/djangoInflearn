@@ -18,7 +18,7 @@ class ProfileCreateView(CreateView):
     template_name = 'profileapp/create.html'                #profileapp 내부의 create.html 사용
 
     def form_valid(self, form):
-        temp_profile = form.save(commit=False)         #커스텀마이징하려는 내용. 괄호안의 form은 forms.py에서 날라온 데이터이며 (self, form)의 form에 저장된다.
+        temp_profile = form.save(commit=False)          #커스텀마이징하려는 내용. 괄호안의 form은 forms.py에서 날라온 데이터이며 (self, form)의 form에 저장된다.
         temp_profile.user = self.request.user            #user라는 데이터가 아직 없다. temp_profile의 user라는 데이터를 self에서 request를 보는 당사자 유저로 정해준다.
         temp_profile.save()
 

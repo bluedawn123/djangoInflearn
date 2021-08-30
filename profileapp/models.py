@@ -3,7 +3,8 @@ from django.db import models
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')           #1대1 매칭. 프로필과 유저객체를 User에 연결하고,
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    #1대1 매칭. 프로필과 유저객체를 User에 연결하고,
     #on_delete=models.CASCADE는 연결된 User객체가 없어질때 어떻게 할 것인가를 담당 => 유저가 탈퇴하면 사라짐  #request.user.profile.nickname처럼 바로 접근해서 데이터를 받아올 수 있다.
 
     image = models.ImageField(upload_to='profile/', null=True)
